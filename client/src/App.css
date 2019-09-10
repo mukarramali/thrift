@@ -1,0 +1,13 @@
+.App {
+  padding: 5%;
+  flex-direction: column;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+button {
+  height: 30px;
+  margin-right: 10px;
+}
