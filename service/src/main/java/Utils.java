@@ -1,40 +1,38 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Random;
 
-public class Utils {
+class Utils {
 
-    static List<Integer> list1 = new ArrayList<>(Arrays.asList(0, 2, 4, 6, 8, 10, 1, 5));
-    static List<Integer> list2 = new ArrayList<>(Arrays.asList(0, 8, 10, 5));
+    private static int[] odds = {1, 3, 5, 7, 9};
+    private static int[] evens = {0, 2, 4, 6, 8, 10};
 
-    public static List<Integer> randomNumbers() {
-        return System.currentTimeMillis() % 2 == 0 ? list1 : list2;
+    static List<Integer> randomNumbers() {
+        return oddsAndEvens(new Random().nextBoolean());
     }
 
-    public static double getMean(int[] numbers) {
-        double sum = 0;
-        for(int number:numbers) {
-            sum += number;
-        }
-        return sum/numbers.length;
+    private static List<Integer> oddsAndEvens(boolean small) {
+        int oddSize = small ? 1 : 2;
+        int evenSize = small ? 3 : 6;
+        List<Integer> mixedNumbers = getEvenNumbers(evenSize);
+        mixedNumbers.addAll(getOddNumbers(oddSize));
+        return mixedNumbers;
     }
 
-    public static int getMedian(int[] numbers) {
-        Arrays.sort(numbers);
-        if (numbers.length % 2 == 0)
-            return (numbers[(numbers.length / 2) - 1] + numbers[numbers.length / 2]) / 2;
-        return numbers[numbers.length / 2];
+    private static List<Integer> getOddNumbers(int size) {
+        List<Integer> randomNumbers = new ArrayList<>();
+        for(int i=0;i<size;i++) randomNumbers.add(getRandom(odds));
+        return randomNumbers;
     }
 
-    public static double getVariance(int[] numbers) {
-        double mean = getMean(numbers);
-        double temp = 0;
-        for(double number:numbers)
-            temp += (number-mean)*(number-mean);
-        return temp/(numbers.length-1);
+    private static List<Integer> getEvenNumbers(int size) {
+        List<Integer> randomNumbers = new ArrayList<>();
+        for(int i=0;i<size;i++) randomNumbers.add(getRandom(evens));
+        return randomNumbers;
     }
 
-    public static double getStdDev(int[] numbers) {
-        return Math.sqrt(getVariance(numbers));
+    private static int getRandom(int[] array) {
+        int rnd = new Random().nextInt(array.length);
+        return array[rnd];
     }
 }
