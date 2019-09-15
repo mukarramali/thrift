@@ -3,13 +3,10 @@ var app = express()
 var { client } = require('./src/StatisticsClient');
 var ttypes = require('./src/statistics_types');
 
-const GENERATE_RANDOM_NUMBER_API = "";
-const CALCULATE_STATS_API = "";
-
 function isValidEntry(payload) {
-    const entries = payload.entries;
-    const count = entries.length;
-    return count >= 2 && entries.filter(Number.isInteger).length === count;
+    const { entry } = JSON.parse(payload);
+    const count = entry.length;
+    return count >= 2 && entry.filter(Number.isInteger).length === count;
 }
 
 function calculateStats(payload, resolve, error, next) {
@@ -27,16 +24,20 @@ function generateRandomNumbers(resolve, error, next) {
         .finally(() => next);
 }
 
-app.get('/action', function (req, res, next) {
+app.get('/actions', function (req, res, next) {
     console.log("Method", req.query.method, "called!");
     switch (req.query.method) {
         case 'IS-VALID-ENTRY':
-            if(isValidEntry(req.query.payload)) {
-                res.status(200).send({});
-                break;
-            } else {
-                res.status(400).send({}) 
-            }
+            /**
+             * /actions?method=IS-VALID-ENTRY&payload={"entry":[1,3,4]}
+             * should return 200
+             *
+             * /actions?method=IS-VALID-ENTRY&payload={"entry":[1,3,"Strings"]}
+             * should return 400
+             */
+            const isValid = isValidEntry(req.query.payload);
+            res.status(isValid ? 200 : 400).send(isValid ? "OK" : "FAILED")
+            break;
         case 'CALCULATE-STATS':
             calculateStats(req.query.payload,
                 (data) => res.status(200).send(data),
