@@ -1,5 +1,6 @@
 var express = require('express')
 var app = express()
+var { client } = require('./src/StatisticsClient');
 
 const GENERATE_RANDOM_NUMBER_API = "";
 const CALCULATE_STATS_API = "";
@@ -46,7 +47,7 @@ app.get('/action', function (req, res, next) {
             generateRandomNumbers(
                 (data) => res.status(200).send(data),
                 () => res.status(400).send({}),
-                next)
+                next);
             break;
         default:
             res.status(400).send({})       
@@ -54,4 +55,9 @@ app.get('/action', function (req, res, next) {
     }
 })
 
-app.listen(8000)
+app.listen(8000);
+
+client.ping()
+    .then(function(response) {
+        console.log("Backend service is", response ? "up!" : "down!");
+    });
