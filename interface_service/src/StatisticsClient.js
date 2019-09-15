@@ -1,6 +1,5 @@
 var thrift = require('thrift');
 var StatisticsService = require('./StatisticsService');
-var ttypes = require('./statistics_types');
 const assert = require('assert');
 
 var transport = thrift.TBufferedTransport;

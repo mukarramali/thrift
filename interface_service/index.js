@@ -1,6 +1,7 @@
 var express = require('express')
 var app = express()
 var { client } = require('./src/StatisticsClient');
+var ttypes = require('./src/statistics_types');
 
 const GENERATE_RANDOM_NUMBER_API = "";
 const CALCULATE_STATS_API = "";
@@ -12,23 +13,22 @@ function isValidEntry(payload) {
 }
 
 function calculateStats(payload, resolve, error, next) {
-    fetch(CALCULATE_STATS_API + payload)
-        .then(res => res.json())
-        .then(resolve)
-        .catch(error)
-        .finally(next);
+    // fetch(CALCULATE_STATS_API + payload)
+    //     .then(res => res.json())
+    //     .then(resolve)
+    //     .catch(error)
+    //     .finally(next);
 }
 
 function generateRandomNumbers(resolve, error, next) {
-    fetch(GENERATE_RANDOM_NUMBER_API)
-    .then(res => res.json())
-    .then(resolve)
-    .catch(error)
-    .finally(next);
+    client.generateNums()
+        .then(randomNumbers => resolve(randomNumbers))
+        .fail(err => error(err))
+        .finally(() => next);
 }
 
 app.get('/action', function (req, res, next) {
-    console.log(req.query.method)
+    console.log("Method", req.query.method, "called!");
     switch (req.query.method) {
         case 'IS-VALID-ENTRY':
             if(isValidEntry(req.query.payload)) {
