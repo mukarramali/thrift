@@ -1,7 +1,6 @@
 var express = require('express')
 var app = express()
 var { client } = require('./src/StatisticsClient');
-var ttypes = require('./src/statistics_types');
 
 function isValidEntry(payload) {
     const { entry } = JSON.parse(payload);
@@ -10,11 +9,11 @@ function isValidEntry(payload) {
 }
 
 function calculateStats(payload, resolve, error, next) {
-    // fetch(CALCULATE_STATS_API + payload)
-    //     .then(res => res.json())
-    //     .then(resolve)
-    //     .catch(error)
-    //     .finally(next);
+    const { entry } = JSON.parse(payload);
+    client.calculateStat(entry)
+        .then(stats => resolve(stats))
+        .fail(err => error(err))
+        .finally(() => next);
 }
 
 function generateRandomNumbers(resolve, error, next) {
@@ -36,18 +35,29 @@ app.get('/actions', function (req, res, next) {
              * should return 400
              */
             const isValid = isValidEntry(req.query.payload);
-            res.status(isValid ? 200 : 400).send(isValid ? "OK" : "FAILED")
+            res.status(isValid ? 200 : 400).send(isValid ? "OK" : "WRONG PAYLOAD")
             break;
         case 'CALCULATE-STATS':
+            /**
+             * /actions?method=CALCULATE-STATS&payload={"entry":[1, 5,4]}
+             */
+            if(!isValidEntry(req.query.payload)) {
+                res.status(400).send("WRONG PAYLOAD")
+                break;
+            }
+
             calculateStats(req.query.payload,
                 (data) => res.status(200).send(data),
-                () => res.status(400).send({}),
+                () => res.status(500).send({}),
                 next)
             break;
         case 'GEN-RAND':
+            /**
+             * /actions?method=GEN-RAND
+             */
             generateRandomNumbers(
                 (data) => res.status(200).send(data),
-                () => res.status(400).send({}),
+                () => res.status(500).send({}),
                 next);
             break;
         default:
