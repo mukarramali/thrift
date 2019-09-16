@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-npm start
+REACT_APP_SERVICE_API="http://localhost:8000" npm start

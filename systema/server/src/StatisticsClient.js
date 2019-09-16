@@ -5,7 +5,7 @@ const assert = require('assert');
 var transport = thrift.TBufferedTransport;
 var protocol = thrift.TBinaryProtocol;
 
-var connection = thrift.createConnection("localhost", 9092, {
+var connection = thrift.createConnection("systemb", 9092, {
     transport : transport,
     protocol : protocol
 });

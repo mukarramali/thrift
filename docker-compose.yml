@@ -1,0 +1,18 @@
+version: '2.4'
+
+services:
+  systemb:
+    image: systemb
+    ports:
+      - 9092:9092
+    environment:
+      SOCKER_PORT: 9092
+  systema:
+    image: systema
+    ports:
+      - 3000:3000
+      - 8000:8000
+    environment:
+      SOCKER_PORT: 9092
+    depends_on:
+      - systemb
