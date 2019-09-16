@@ -4,7 +4,7 @@ import Container from './components/Container';
 
 function App() {
 
-  let [randomNumbers, setRandomNumbers] = useState("");
+  let [randomNumbers, setRandomNumbers] = useState([]);
   let [stats, setStats] = useState({mean: 0, median: 0, variance: 0, stdDev: 0});
 
   return (

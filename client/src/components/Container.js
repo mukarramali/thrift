@@ -5,10 +5,19 @@ import GenerateButton from './GenerateButton';
 import CalculateButton from './CalculateButton';
 import Statistics from './Statistics';
 
-export default function Container() {
+export default function Container(props) {
+    let {
+        randomNumbers,
+        setRandomNumbers
+    } = props;
     return <div>
-        <RandomNumberField />
-        <GenerateButton />
+        <RandomNumberField
+            randomNumbers={randomNumbers}
+            setRandomNumbers={setRandomNumbers}
+            />
+        <GenerateButton
+            setRandomNumbers={setRandomNumbers} 
+            />
         <CalculateButton />
         <hr />
         <Statistics />
