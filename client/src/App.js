@@ -1,54 +1,20 @@
-import React from 'react';
+import React, {useState} from 'react';
 import './App.css';
-
-function RandomNumberField() {
-  return <div>
-    <h3>
-      <label htmlFor="random_numbers">
-        Enter List
-        </label>
-      <input
-        type="text"
-        name="random_numbers"
-        pattern="(\d|\s|,)*"
-      />
-    </h3>
-    <p>Enter comma separated list of numbers</p>
-  </div>
-}
-
-function GenerateButton() {
-  return <button>
-    Generate Random Numbers
-  </button>
-}
-
-function CalculateButton() {
-  return <button>
-    Calculate Statistics
-  </button>
-}
-
-function Statistics() {
-  return <div>
-    <ul>
-      <li>Original Data: [1, 2, 3, 4]</li>
-      <li>Mean:</li>
-      <li>Median:</li>
-      <li>Variance:</li>
-      <li>StandardDev:</li>
-    </ul>
-  </div>
-}
+import Container from './components/Container';
 
 function App() {
+
+  let [randomNumbers, setRandomNumbers] = useState("");
+  let [stats, setStats] = useState({mean: 0, median: 0, variance: 0, stdDev: 0});
+
   return (
     <div className="App">
-      <RandomNumberField/>
-      <GenerateButton/>
-      <CalculateButton/>
-      <hr/>
-      <Statistics/>
+      <Container
+        randomNumbers={randomNumbers}
+        setRandomNumbers={setRandomNumbers}
+        stats={stats}
+        setStats={setStats}
+      />
     </div>
   );
 }
