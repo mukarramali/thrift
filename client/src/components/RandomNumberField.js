@@ -1,12 +1,12 @@
 import React, {useState, useEffect} from 'react';
 
-const RandomNumberField = React.memo(({ randomNumbers, setRandomNumbers }) => {
+const RandomNumberField = ({ randomNumbers, generatedNumbers, setRandomNumbers }) => {
     let [fieldData, setFieldData] = useState("");
     useEffect(
         () => {
-            setFieldData(randomNumbers.join(","));
+            setFieldData(generatedNumbers.join(","));
         },
-        [randomNumbers],
+        [generatedNumbers],
     );
     return <div>
         <h3>
@@ -27,6 +27,6 @@ const RandomNumberField = React.memo(({ randomNumbers, setRandomNumbers }) => {
         </h3>
         <p>Enter comma separated list of numbers</p>
     </div>
-}, ({ prevRandomNumbers }, { nextRandomNumbers }) => prevRandomNumbers !== nextRandomNumbers);
+};
 
 export default RandomNumberField;

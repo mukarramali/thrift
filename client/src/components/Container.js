@@ -8,14 +8,18 @@ import Statistics from './Statistics';
 export default function Container(props) {
     let {
         randomNumbers,
-        setRandomNumbers
+        setRandomNumbers,
+        generatedNumbers,
+        setGeneratedNumbers
     } = props;
     return <div>
         <RandomNumberField
             randomNumbers={randomNumbers}
+            generatedNumbers={generatedNumbers}
             setRandomNumbers={setRandomNumbers}
             />
         <GenerateButton
+            setGeneratedNumbers={setGeneratedNumbers}
             setRandomNumbers={setRandomNumbers} 
             />
         <CalculateButton />
