@@ -10,7 +10,9 @@ export default function Container(props) {
         randomNumbers,
         setRandomNumbers,
         generatedNumbers,
-        setGeneratedNumbers
+        setGeneratedNumbers,
+        setStats,
+        stats
     } = props;
     return <div>
         <RandomNumberField
@@ -22,8 +24,14 @@ export default function Container(props) {
             setGeneratedNumbers={setGeneratedNumbers}
             setRandomNumbers={setRandomNumbers} 
             />
-        <CalculateButton />
+        <CalculateButton
+            randomNumbers={randomNumbers}
+            setStats={setStats} 
+            />
         <hr />
-        <Statistics />
+        <Statistics
+            randomNumbers={randomNumbers}
+            stats={stats}
+            />
     </div>;
 }

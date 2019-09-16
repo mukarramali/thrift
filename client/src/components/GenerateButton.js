@@ -1,6 +1,6 @@
 import React from 'react';
+import {SERVICE_API} from './../constants';
 
-const SERVICE_API = "http://localhost:8000"
 const GEN_RAND_API = SERVICE_API + "/actions?method=GEN-RAND";
 
 export default function GenerateButton({setRandomNumbers, setGeneratedNumbers}) {

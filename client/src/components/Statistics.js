@@ -1,13 +1,19 @@
 import React from 'react';
 
-export default function Statistics() {
+export default function Statistics({stats, randomNumbers}) {
+    const { 
+        mean,
+        median,
+        variance,
+        stdDev
+    } = stats;
     return <div>
         <ul>
-            <li>Original Data: [1, 2, 3, 4]</li>
-            <li>Mean:</li>
-            <li>Median:</li>
-            <li>Variance:</li>
-            <li>StandardDev:</li>
+            <li>Original Data: [{randomNumbers.join(",")}]</li>
+            <li>Mean:{mean}</li>
+            <li>Median:{median}</li>
+            <li>Variance:{variance}</li>
+            <li>StandardDev:{stdDev}</li>
         </ul>
     </div>
 }

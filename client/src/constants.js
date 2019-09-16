@@ -1,0 +1,1 @@
+export const SERVICE_API = process.env.REACT_APP_SERVICE_API || "http://localhost:8000";
