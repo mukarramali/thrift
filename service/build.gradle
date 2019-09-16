@@ -2,6 +2,17 @@ plugins {
     id 'java'
 }
 
+//create a single Jar with all dependencies
+task buildJar(type: Jar) {
+    manifest {
+        attributes 'Implementation-Title': 'Gradle Jar File Example',
+                'Main-Class': 'StatisticsApp'
+    }
+    baseName = project.name + '-all'
+    from { configurations.compile.collect { it.isDirectory() ? it : zipTree(it) } }
+    with jar
+}
+
 group 'statistics'
 version '0.1.0'
 

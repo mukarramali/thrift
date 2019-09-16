@@ -6,3 +6,6 @@ build/
 *.iml
 *.pem
 .DS_Store
+.classpath
+.project
+.settings/

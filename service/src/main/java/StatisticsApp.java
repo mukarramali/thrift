@@ -7,8 +7,8 @@ import statistics.StatisticsService;
 
 public class StatisticsApp {
     public static void main(String[] args) {
-        StatisticsServer hwServer = new StatisticsServer();
-        StatisticsService.Processor processor = new StatisticsService.Processor(hwServer);
+        StatisticsServer statisticsServer = new StatisticsServer();
+        StatisticsService.Processor processor = new StatisticsService.Processor(statisticsServer);
         try {
             TServerTransport tServerTransport = new TServerSocket(9092);
             TServer server = new TSimpleServer(new TServer.Args(tServerTransport).processor(processor));
